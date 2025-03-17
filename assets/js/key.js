@@ -15,11 +15,11 @@ class Key {
     setState = function(state) {
         switch(state) {
             case JUST_PRESSED:
-            default:
-                this.state = RELEASED;
-                break;
             case PRESSED:
                 this.state = state;
+                break;
+            default:
+                this.state = RELEASED;
                 break;
             
         }
