@@ -2,5 +2,5 @@ projectKey=TetrisVF
 serverUrl=http://localhost:9000
 serverVersion=25.3.0.104237
 dashboardUrl=http://localhost:9000/dashboard?id=TetrisVF
-ceTaskId=6508eca1-7eb2-41fe-b296-ca109af3f82f
-ceTaskUrl=http://localhost:9000/api/ce/task?id=6508eca1-7eb2-41fe-b296-ca109af3f82f
+ceTaskId=65bdb0d2-50a3-4b95-adb1-f3cfba806dc8
+ceTaskUrl=http://localhost:9000/api/ce/task?id=65bdb0d2-50a3-4b95-adb1-f3cfba806dc8

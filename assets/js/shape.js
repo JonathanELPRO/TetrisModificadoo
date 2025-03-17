@@ -76,7 +76,8 @@ class Shape {
 			this.rotation--;
 			if (this.rotation < 0) {
 				this.rotation = this.data.length - 1;
-			} if (!this.canMove(this.x, this.y)) {
+			}
+			if (!this.canMove(this.x, this.y)) {
 				this.rotation = lastRotation;
 			}
 		}
