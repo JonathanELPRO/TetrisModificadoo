@@ -9,7 +9,7 @@ class Grid {
 		this.rows = rows;
 		let n = cols * rows;
 		this.data = [];
-		for(var i = 0; i < n; ++i) {
+		for(let i = 0; i < n; ++i) {
 			this.data[i] = 0;
 		}
     }
