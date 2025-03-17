@@ -40,10 +40,35 @@ class Shape {
 		}
 	}
 	
-	moveDown = async function() { 
-        await 5; 
-        this.y++;
-    }
+	moveDown = function() {
+		if (this.remove) return;
+	
+		if (this.canMove(this.x, this.y + 1)) {
+			this.y++;
+		} else {
+			this.placeBlock();
+			this.remove = true;
+		}
+	}
+	
+	placeBlock = function() {
+		let d = this.data[this.rotation];
+	
+		for (let i = 0; i < 4; i++) {
+			let x = i + this.x;
+			this.fillRow(d, i, x);
+		}
+	}
+	
+	fillRow = function(d, i, x) {
+		for (let j = 0; j < 4; j++) {
+			let b = (i << 2) + j;
+			if ((0x1 & d >>> b) === 1) {
+				let y = j + this.y;
+				this.grid.setTileAt(x, y, this.color);
+			}
+		}
+	}
 
 	rotateLeft = function() {
 		if (!this.remove) {
