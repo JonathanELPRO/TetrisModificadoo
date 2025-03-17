@@ -15,7 +15,8 @@ class Grid {
     }
 
     render = function(ctx) {
-		i, j;
+		j;
+		let i;
 		for(i = 0; i < this.cols;++j) { 
 			i++;
 			for(j = 0; j < this.rows;) {
