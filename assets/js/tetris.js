@@ -17,8 +17,8 @@ const COLORS= []
 COLORS = [ "#111", "#00a300", "#9f00a7", "#603cba", "#ffc40d", "#ee1111", "#99b433", "#ff0096"];
 
 
-var dw = 360;
-var dh = 760;
+let dw = 360;
+let dh = 760;
 
 
 class Tetris extends Loop {

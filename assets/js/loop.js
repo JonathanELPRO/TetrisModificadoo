@@ -20,15 +20,15 @@ class Loop {
 
     loop = function() {
         if(this.listener) {
-            var dt = (this.start - this.end) / 1000.0;
+            let dt = (this.start - this.end) / 1000.0;
             this.end = this.start;
             this.start = new Date().getTime();
 
             this.listener(dt);
             
-            var diff = this.tgtTime - (this.start - new Date().getTime());
+            let diff = this.tgtTime - (this.start - new Date().getTime());
             if(diff > 0) {
-                var self = this;
+                let self = this;
                 window.setTimeout(function() {
                     requestAnimationFrame(self.loop.bind(self));
                 }, diff);} else {

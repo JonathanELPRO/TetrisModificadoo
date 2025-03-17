@@ -36,7 +36,7 @@ class Grid {
     }
 
     checkLines = function(params) {
-        var i, j, k, count = 0;
+        let i, j, k, count = 0;
 		inner: for (j = 0; j < 20; j++) {
 			for (i = 0; i < 10; i++) {
 				if (!this.data[i * this.rows + j]) {
