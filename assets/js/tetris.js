@@ -92,58 +92,44 @@ class Tetris extends Loop {
         }
     }
 
-    inputHandler = function (e) {
+    inputHandler = function(e) {
 
         let code = e.keyCode;
         let down = e.type == "keydown";
         let prevent = false;
-        switch (code) {
-            default:
-                break;
+        switch(code) {
             case 32:
-                if (this.gameOver && !down) {
+                if(this.gameOver && !down) {
                     this.restart();
                 }
                 prevent = true;
                 break;
             case 37:
-                if (down && this.keyLeft.isReleased()) {
-                    this.keyLeft.setState(JUST_PRESSED);
-                }
-                if (!down) {
-                    this.keyLeft.setState(RELEASED);
-                }
-                prevent = true;
+                this.updateKeyState(this.keyLeft, down);
                 break;
             case 39:
-                if (down && this.keyRight.isReleased()) {
-                    this.keyRight.setState(JUST_PRESSED);
-                }
-                if (!down) {
-                    this.keyRight.setState(RELEASED);
-                }
-                prevent = true;
+                this.updateKeyState(this.keyRight, down);
                 break;
             case 40:
-                if (down && this.keyDown.isReleased()) {
-                    this.keyDown.setState(JUST_PRESSED);
-                }
-                if (!down) {
-                    this.keyDown.setState(RELEASED);
-                }
+                this.updateKeyState(this.keyDown, down);
                 prevent = true;
                 break;
             case 38:
-                if (down && this.keyUp.isReleased()) {
-                    this.keyUp.setState(JUST_PRESSED);
-                }
-                if (!down) {
-                    this.keyUp.setState(RELEASED);
-                }
-                prevent = true;
+                this.updateKeyState(this.keyUp, down)
                 break;
         }
-        if (prevent) e.preventDefault();
+        if(prevent) e.preventDefault();
+    }
+
+    
+    updateKeyState = function (key, down) {
+        if (down && key.isReleased()) {
+            key.setState(JUST_PRESSED);
+        }
+        else if (!down) {
+            key.setState(RELEASED);
+        }
+        prevent = true;
     }
 
     update = function (deltaTime) {
