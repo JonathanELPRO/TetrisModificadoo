@@ -16,9 +16,8 @@ class Grid {
 
     render = function(ctx) {
 		let i,j;
-		for(i = 0; i < this.cols;++j) { 
-			i++;
-			for(j = 0; j < this.rows;) {
+		for(i = 0; i < this.cols;++i) { 
+			for(j = 0; j < this.rows;++j) {
 				ctx.fillStyle = COLORS[this.data[i * this.rows + j]];
 				ctx.fillRect(i * TILE_SIZE + (i << 2) + 2, j * TILE_SIZE + (j << 2) + 2, TILE_SIZE, TILE_SIZE);
 			}
