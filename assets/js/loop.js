@@ -4,7 +4,10 @@
 class Loop {
 
     constructor() {
-
+        this.tgtTime = 0;
+        this.start = 0;
+        this.end = 0;
+        this.listener = null;
     }
 
     start = function(listener, fps) {

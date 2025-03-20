@@ -33,7 +33,6 @@ class Tetris extends Loop {
         this.keyRight = new Key(0.15);
         this.keyDown = new Key(0.20);
         this.keyUp = new Key();
-        super(); //
     }
 
     create = function (parent) {
@@ -128,76 +127,69 @@ class Tetris extends Loop {
         }
         else if (!down) {
             key.setState(RELEASED);
-        }
-        prevent = true;
+        } 
     }
 
     update = function (deltaTime) {
-
-        if (this.gameOver) {
-            return;
+        if (this.gameOver) return;
+    
+        if (!this.currentShape || this.currentShape.remove) {
+            this.spawnNewShape();
+            if (this.gameOver) return;
         }
-        if (this.currentShape == null || this.currentShape.remove) {
-
-            let lines = this.grid.checkLines();
-            if (lines > 0) {
-                this.score += lines * 100;
-                if (this.score > this.level * 1000) {
-                    this.level++;
-                }
+    
+        this.updateTime(deltaTime);
+        this.handleInput(deltaTime);
+    };
+    
+    spawnNewShape = function () {
+        let lines = this.grid.checkLines();
+        if (lines > 0) {
+            this.score += lines * 100;
+            if (this.score > this.level * 1000) {
+                this.level++;
             }
-
-            let shapeId = Math.floor(Math.random() * 7);
-            this.currentShape = new Shape(SHAPES[shapeId], shapeId + 1, this.grid);
-            this.currentShape.x = 3;
-            this.time = 0;
-
-            if (!this.currentShape.canMove(this.currentShape.x, this.currentShape.y)) { // GAME OVER
-                this.gameOver = true;
-                return;
-            }
-
         }
-
+    
+        let shapeId = Math.floor(Math.random() * 7);
+        this.currentShape = new Shape(SHAPES[shapeId], shapeId + 1, this.grid);
+        this.currentShape.x = 3;
+        this.time = 0;
+    
+        if (!this.currentShape.canMove(this.currentShape.x, this.currentShape.y)) {
+            this.gameOver = true;
+        }
+    };
+    
+    updateTime = function (deltaTime) {
         if (this.time > 1) {
             this.time = 0;
             this.currentShape.moveDown();
         } else {
             this.time += deltaTime * this.level;
         }
-
-        if (this.keyLeft.isJustPressed() || this.keyLeft.isHoldDown()) {
-            this.keyLeft.setState(PRESSED);
-            this.currentShape.moveLeft();
+    };
+    
+    handleInput = function (deltaTime) {
+        const keys = [
+            { key: this.keyLeft, action: () => this.currentShape.moveLeft() },
+            { key: this.keyRight, action: () => this.currentShape.moveRight() },
+            { key: this.keyDown, action: () => { this.time = 0; this.currentShape.moveDown(); } },
+            { key: this.keyUp, action: () => this.currentShape.rotateRight() }
+        ];
+    
+        for (const { key, action } of keys) {
+            if (key.isJustPressed() || key.isHoldDown()) {
+                key.setState(PRESSED);
+                action();
+            }
+            if (key.isPressed()) {
+                let multiplier = key === this.keyDown ? 10 : 1;
+                key.addHoldDownTime(deltaTime * multiplier * this.level);
+            }
         }
-        if (this.keyLeft.isPressed()) {
-            this.keyLeft.addHoldDownTime(deltaTime * this.level);
-        }
-        if (this.keyRight.isJustPressed() || this.keyRight.isHoldDown()) {
-            this.keyRight.setState(PRESSED);
-            this.currentShape.moveRight();
-        }
-        if (this.keyRight.isPressed()) {
-            this.keyRight.addHoldDownTime(deltaTime * this.level);
-        }
-        if (this.keyDown.isJustPressed() || this.keyDown.isHoldDown()) {
-            this.keyDown.setState(PRESSED);
-            this.time = 0;
-            this.currentShape.moveDown();
-        }
-        if (this.keyDown.isPressed()) {
-            this.keyDown.addHoldDownTime(deltaTime * 10 * this.level);
-        }
-        if (this.keyUp.isJustPressed()) {
-            this.keyUp.setState(Key.PRESSED);
-            this.currentShape.rotateRight();
-        }
-        if (this.keyUp.isJustPressed()) {
-            this.keyUp.setState(Key.PRESSED);
-            this.currentShape.rotateRight();
-        }
-
-    }
+    };
+    
 
     render = function (ctx) {
 

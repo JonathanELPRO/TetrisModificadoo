@@ -47,15 +47,3 @@ canvas {
 	-webkit-filter: drop-shadow(3px 2px 1px var(--shadow_color));
 	filter: drop-shadow(3px 2px 1px var(--shadow_color));
 }
-/*
-.instructions {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	background-color: lightgray;
-	padding: 10px 20px 0px 20px;
-	border-radius: 10px;
-	opacity: 0.75;
-}*/
