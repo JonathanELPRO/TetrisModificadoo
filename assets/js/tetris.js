@@ -34,32 +34,6 @@ class Tetris extends Loop {
         this.keyUp = new Key();
     }
 
-    create = function (parent) {
-        this.canvas = document.createElement("canvas");
-        this.canvas.style.width = "100%";
-        this.canvas.style.height = "100%";
-        parent.appendChild(this.canvas);
-
-        window.addEventListener('keydown', this.inputHandler.bind(this), false);
-        window.addEventListener('keyup', this.inputHandler.bind(this), false);
-
-        let self = this;
-        let resize = function () {
-            self.canvas.width = dw;
-            self.canvas.height = dh;
-        }
-        window.onresize = resize;
-        resize();
-        this.running = true;
-
-        this.restart();
-        this.start(function (dt) {
-            self.update(dt);
-            self.render(self.canvas.getContext("2d"));
-        }, 60);
-
-    }
-
 
     create = function (parent) {
         try {
