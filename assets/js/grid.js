@@ -34,39 +34,36 @@ class Grid {
 		this.data[x * this.rows + y] = tile;
 	}
 
-	checkLines = function (params) {
+
+	checkLines = function () {
 		let i, j, k, count = 0;
-
 		for (j = 0; j < 20; j++) {
-			let complete = true;
-
-			// Verificar si la línea está completa
+			let notCompleted = false;
+			
 			for (i = 0; i < 10; i++) {
 				if (!this.data[i * this.rows + j]) {
-					complete = false;
+					notCompleted = true;
 					break;
 				}
 			}
-
-			if (!complete) continue;
-
-			// Desplazar filas hacia abajo
+	
+			if (notCompleted) continue;
+		
 			for (k = j; k > 0; k--) {
 				for (i = 0; i < 10; i++) {
 					this.data[i * this.rows + k] = this.data[i * this.rows + (k - 1)];
 				}
 			}
-
-			// Limpiar la primera fila
+	
 			for (i = 0; i < 10; i++) {
 				this.data[i * this.rows] = 0;
 			}
 
 			count++;
 		}
-
 		return count;
 	};
+	
 
 
 }

@@ -108,7 +108,6 @@ class Tetris extends Loop {
     
         if (!this.currentShape || this.currentShape.remove) {
             this.spawnNewShape();
-            if (this.gameOver) return;
         }
     
         this.updateTime(deltaTime);
@@ -155,10 +154,12 @@ class Tetris extends Loop {
             if (key.isJustPressed() || key.isHoldDown()) {
                 key.setState(PRESSED);
                 action();
+            }   
+            if (key.isPressed() && key == this.keyDown) {
+                key.addHoldDownTime(deltaTime * 10 * this.level);
             }
             if (key.isPressed()) {
-                let multiplier = key === this.keyDown ? 10 : 1;
-                key.addHoldDownTime(deltaTime * multiplier * this.level);
+                key.addHoldDownTime(deltaTime * this.level);
             }
         }
     };

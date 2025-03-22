@@ -3,12 +3,7 @@
 
 class Loop {
 
-    constructor() {
-        this.tgtTime = 0;
-        this.start = 0;
-        this.end = 0;
-        this.listener = null;
-    }
+
 
     start = function(listener, fps) {
         this.tgtTime = 1000.0 / fps;
@@ -34,7 +29,8 @@ class Loop {
                 let self = this;
                 window.setTimeout(function() {
                     requestAnimationFrame(self.loop.bind(self));
-                }, diff);} else {
+                }, diff);
+            } else {
                 requestAnimationFrame(this.loop.bind(this));
             }
         }
